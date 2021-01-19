@@ -17,4 +17,18 @@
         android:gravity="center_vertical"
         tools:text="some text"/>
 
+    <CheckBox
+        android:id="@+id/done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        android:layout_marginLeft="8dp" />
+
+    <ImageView
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:src="@android:drawable/ic_notification_clear_all"/>
+
 </LinearLayout>

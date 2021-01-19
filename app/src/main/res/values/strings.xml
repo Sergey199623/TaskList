@@ -7,5 +7,6 @@
     <string name="note_title">Заголовок</string>
 
     <string name="save">Сохранить</string>
+    <string name="done">Прогресс</string>
 
 </resources>
