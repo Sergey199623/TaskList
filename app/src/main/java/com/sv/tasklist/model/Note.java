@@ -15,17 +15,38 @@ public class Note implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     public int uid;
 
-    @ColumnInfo(name = "Note")
+    @ColumnInfo(name = "Text")
     public String text;
 
-    @ColumnInfo(name = "Date_Of_Create")
+    @ColumnInfo(name = "DateOfCreate")
     public long timestamp;
 
-    @ColumnInfo(name = "Done")
+    @ColumnInfo(name = "Complete")
     public boolean done;
 
     public Note() {
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Note note = (Note) o;
+
+        if (uid != note.uid) return false;
+        if (timestamp != note.timestamp) return false;
+        if (done != note.done) return false;
+        return text != null ? text.equals(note.text) : note.text == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = uid;
+        result = 31 * result + (text != null ? text.hashCode() : 0);
+        result = 31 * result + (int) (timestamp ^ (timestamp >>> 32));
+        result = 31 * result + (done ? 1 : 0);
+        return result;
     }
 
     protected Note(Parcel in) {
@@ -33,6 +54,19 @@ public class Note implements Parcelable {
         text = in.readString();
         timestamp = in.readLong();
         done = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(uid);
+        dest.writeString(text);
+        dest.writeLong(timestamp);
+        dest.writeByte((byte) (done ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Note> CREATOR = new Creator<Note>() {
@@ -46,33 +80,4 @@ public class Note implements Parcelable {
             return new Note[size];
         }
     };
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Note note = (Note) o;
-        return uid == note.uid &&
-                timestamp == note.timestamp &&
-                done == note.done &&
-                text.equals(note.text);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(uid, text, timestamp, done);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(uid);
-        dest.writeString(text);
-        dest.writeLong(timestamp);
-        dest.writeByte((byte) (done ? 1 : 0));
-    }
 }

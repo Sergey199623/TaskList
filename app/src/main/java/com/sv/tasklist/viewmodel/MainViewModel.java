@@ -10,9 +10,10 @@ import java.util.List;
 
 public class MainViewModel extends ViewModel {
 
-    private LiveData<List<Note>> noteLiveDate = App.getInstance().getNoteDao().getAllLiveData();
+    private LiveData<List<Note>> noteLiveData = App.getInstance().getNoteDao().getAllLiveData();
 
-    public LiveData<List<Note>> getNoteLiveDate() {
-        return noteLiveDate;
+    public LiveData<List<Note>> getNoteLiveData() {
+        return noteLiveData;
     }
+
 }

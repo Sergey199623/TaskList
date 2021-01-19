@@ -2,6 +2,7 @@ package com.sv.tasklist.adapter;
 
 import android.app.Activity;
 import android.graphics.Paint;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -16,6 +17,8 @@ import com.sv.tasklist.R;
 import com.sv.tasklist.activity.App;
 import com.sv.tasklist.activity.notes.NoteActivity;
 import com.sv.tasklist.model.Note;
+
+import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
 
@@ -68,17 +71,23 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        return new NoteViewHolder(
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.item_note_list, parent, false)
+        );
     }
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-
+        holder.bind(sortedList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return sortedList.size();
+    }
+
+    public void setItems(List<Note> notes){
+        sortedList.replaceAll(notes);
     }
 
     static class NoteViewHolder extends RecyclerView.ViewHolder {
@@ -124,7 +133,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
             if(note.done) {
                 tvNote.setPaintFlags(tvNote.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             } else {
-                tvNote.setPaintFlags(tvNote.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG);
+                tvNote.setPaintFlags(tvNote.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             }
         }
     }

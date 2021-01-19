@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/note_text"
-        android:minHeight="20dp"
+        android:minHeight="60dp"
         android:gravity="top"/>
 
 </LinearLayout>

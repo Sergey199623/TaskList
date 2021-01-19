@@ -14,9 +14,22 @@ public class App extends Application {
 
     private static App instance;
 
-    // SingleTon
     public static App getInstance() {
         return instance;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        instance = this;
+
+        database = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "app-db-name")
+                .allowMainThreadQueries()
+                .build();
+
+        noteDao = database.noteDao();
     }
 
     public AppDatabase getDatabase() {
@@ -34,17 +47,4 @@ public class App extends Application {
     public void setNoteDao(NoteDao noteDao) {
         this.noteDao = noteDao;
     }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class,
-                "notes-db")
-        .allowMainThreadQueries()
-        .build();
-
-        noteDao = database.noteDao();
-    }
-
 }
