@@ -6,6 +6,6 @@
     <string name="note_title">Название заметки</string>
 
     <string name="save">Сохранить</string>
-    <string name="done">Прогресс</string>
+    <string name="done">Статус</string>
 
 </resources>
