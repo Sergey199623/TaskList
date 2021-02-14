@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -18,6 +17,9 @@ import androidx.appcompat.widget.Toolbar;
 import com.sv.tasklist.R;
 import com.sv.tasklist.activity.App;
 import com.sv.tasklist.model.Note;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class NoteActivity extends AppCompatActivity {
 
@@ -73,7 +75,9 @@ public class NoteActivity extends AppCompatActivity {
             case R.id.action_save:
                 if (etText.getText().length() > 0) {
                     note.text = etText.getText().toString();
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm, dd-MM-yyyy");
                     note.done = false;
+                    note.date = sdf.format(Calendar.getInstance().getTime());
                     note.timestamp = System.currentTimeMillis();
                     if (getIntent().hasExtra(EXTRA_NOTE)) {
                         App.getInstance().getNoteDao().update(note);

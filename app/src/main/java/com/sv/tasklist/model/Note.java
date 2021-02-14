@@ -18,8 +18,11 @@ public class Note implements Parcelable {
     @ColumnInfo(name = "Text")
     public String text;
 
-    @ColumnInfo(name = "DateOfCreate")
+    @ColumnInfo(name = "timestamp")
     public long timestamp;
+
+    @ColumnInfo(name = "DateOfCreate")
+    public String date;
 
     @ColumnInfo(name = "Complete")
     public boolean done;
@@ -44,6 +47,7 @@ public class Note implements Parcelable {
     public int hashCode() {
         int result = uid;
         result = 31 * result + (text != null ? text.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (int) (timestamp ^ (timestamp >>> 32));
         result = 31 * result + (done ? 1 : 0);
         return result;
@@ -52,6 +56,7 @@ public class Note implements Parcelable {
     protected Note(Parcel in) {
         uid = in.readInt();
         text = in.readString();
+        date = in.readString();
         timestamp = in.readLong();
         done = in.readByte() != 0;
     }
@@ -60,6 +65,7 @@ public class Note implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(uid);
         dest.writeString(text);
+        dest.writeString(date);
         dest.writeLong(timestamp);
         dest.writeByte((byte) (done ? 1 : 0));
     }

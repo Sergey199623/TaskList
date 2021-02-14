@@ -93,6 +93,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
     static class NoteViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvNote;
+        TextView tvDate;
         CheckBox cbDone;
         View delete;
 
@@ -103,6 +104,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
             super(itemView);
 
             tvNote = itemView.findViewById(R.id.note_text);
+            tvDate = itemView.findViewById(R.id.tvDate);
             cbDone = itemView.findViewById(R.id.done);
             delete = itemView.findViewById(R.id.btnDelete);
 
@@ -122,6 +124,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
         public void bind(Note note) {
             this.note = note;
             tvNote.setText(note.text);
+            tvDate.setText(note.date);
             updateStringOut();
 
             silentUpdate = true;
@@ -132,8 +135,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
         private void updateStringOut() {
             if(note.done) {
                 tvNote.setPaintFlags(tvNote.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                tvDate.setPaintFlags(tvDate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             } else {
                 tvNote.setPaintFlags(tvNote.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                tvDate.setPaintFlags(tvDate.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             }
         }
     }

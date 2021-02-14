@@ -21,11 +21,19 @@
         android:gravity="center|start"
         tools:text="some text"/>
 
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:minHeight="64dp"
+        android:gravity="center|start"
+        tools:text="DD:MM:YYY"/>
+
     <CheckBox
         android:id="@+id/done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/done"
         android:layout_marginStart="8dp"
         android:textSize="16sp"/>
 
