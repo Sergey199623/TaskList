@@ -92,7 +92,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
 
     static class NoteViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvNote;
+        TextView tvTitle;
+//        TextView tvNote;
         TextView tvDate;
         CheckBox cbDone;
         View delete;
@@ -103,7 +104,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvNote = itemView.findViewById(R.id.note_text);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
+//            tvNote = itemView.findViewById(R.id.note_text);
             tvDate = itemView.findViewById(R.id.tvDate);
             cbDone = itemView.findViewById(R.id.done);
             delete = itemView.findViewById(R.id.btnDelete);
@@ -123,7 +125,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
 
         public void bind(Note note) {
             this.note = note;
-            tvNote.setText(note.text);
+            tvTitle.setText(note.title);
+//            tvNote.setText(note.text);
             tvDate.setText(note.date);
             updateStringOut();
 
@@ -134,10 +137,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
 
         private void updateStringOut() {
             if(note.done) {
-                tvNote.setPaintFlags(tvNote.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//                tvNote.setPaintFlags(tvNote.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                tvTitle.setPaintFlags(tvTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 tvDate.setPaintFlags(tvDate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             } else {
-                tvNote.setPaintFlags(tvNote.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                tvTitle.setPaintFlags(tvTitle.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+//                tvNote.setPaintFlags(tvNote.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
                 tvDate.setPaintFlags(tvDate.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             }
         }

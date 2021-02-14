@@ -3,7 +3,8 @@
     <string name="app_name">Список задач</string>
 
     <string name="note_text">Введите описание заметки</string>
-    <string name="note_title">Название заметки</string>
+    <string name="note_title">Заголовок заметки</string>
+    <string name="note_create">Создание заметки</string>
 
     <string name="save">Сохранить</string>
     <string name="done">Статус</string>

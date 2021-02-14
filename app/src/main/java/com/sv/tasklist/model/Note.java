@@ -15,6 +15,9 @@ public class Note implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     public int uid;
 
+    @ColumnInfo(name = "Title")
+    public String title;
+
     @ColumnInfo(name = "Text")
     public String text;
 
@@ -46,6 +49,7 @@ public class Note implements Parcelable {
     @Override
     public int hashCode() {
         int result = uid;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (text != null ? text.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (int) (timestamp ^ (timestamp >>> 32));
@@ -55,6 +59,7 @@ public class Note implements Parcelable {
 
     protected Note(Parcel in) {
         uid = in.readInt();
+        title = in.readString();
         text = in.readString();
         date = in.readString();
         timestamp = in.readLong();
@@ -64,6 +69,7 @@ public class Note implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(uid);
+        dest.writeString(title);
         dest.writeString(text);
         dest.writeString(date);
         dest.writeLong(timestamp);

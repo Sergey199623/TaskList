@@ -62,19 +62,5 @@ public class MainActivity extends AppCompatActivity {
         MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mainViewModel.getNoteLiveData().observe(this, notes -> adapter.setItems(notes));
 
-        alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        alarmIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        long timeToStart = calendar.getTimeInMillis();
-        if(System.currentTimeMillis() < timeToStart){
-            timeToStart += 24 * 60 * 60 * 1000; // one day
-        }
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, timeToStart, AlarmManager.INTERVAL_DAY, alarmIntent);
     }
-
 }
