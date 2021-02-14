@@ -45,7 +45,7 @@ public class NoteActivity extends AppCompatActivity {
     private Note note;
     private EditText etTitle;
     private EditText etDesc;
-    private TextView btnDate;
+    private Button btnDate;
 
     int DIALOG_DATE = 1;
     int myYear = 2021;

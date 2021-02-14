@@ -20,7 +20,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#ffa500"
+            app:titleTextColor="@android:color/black"
+            android:background="#cc7722"
             app:popupTheme="@style/Theme.TaskList.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -33,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="#ffa500"
+        android:backgroundTint="#cc7722"
         app:srcCompat="@drawable/ic_pen" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
