@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.Notification;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,23 +23,29 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 
 import com.sv.tasklist.R;
-import com.sv.tasklist.activity.AlarmReceiver;
 import com.sv.tasklist.activity.App;
 import com.sv.tasklist.model.Note;
+import com.sv.tasklist.notification.MyNotificationPublisher;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class NoteActivity extends AppCompatActivity {
 
     private static final String EXTRA_NOTE = "NoteActivity.EXTRA_NOTE";
+    public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
+    private final static String default_notification_channel_id = "default" ;
+    final Calendar myCalendar = Calendar. getInstance () ;
 
     private Note note;
     private EditText etTitle;
     private EditText etDesc;
-    private Button btnDate;
+    private TextView btnDate;
 
     int DIALOG_DATE = 1;
     int myYear = 2021;
@@ -79,7 +87,25 @@ public class NoteActivity extends AppCompatActivity {
         } else {
             note = new Note();
         }
+    }
 
+    private void scheduleNotification (Notification notification , long delay) {
+        Intent notificationIntent = new Intent( this, MyNotificationPublisher. class ) ;
+        notificationIntent.putExtra(MyNotificationPublisher. NOTIFICATION_ID , 1 ) ;
+        notificationIntent.putExtra(MyNotificationPublisher. NOTIFICATION , notification) ;
+        PendingIntent pendingIntent = PendingIntent. getBroadcast ( this, 0 , notificationIntent , PendingIntent. FLAG_UPDATE_CURRENT ) ;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context. ALARM_SERVICE ) ;
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager. ELAPSED_REALTIME_WAKEUP , delay , pendingIntent) ;
+    }
+    private Notification getNotification (String content) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder( this, default_notification_channel_id ) ;
+        builder.setContentTitle( "Scheduled Notification" ) ;
+        builder.setContentText(content) ;
+        builder.setSmallIcon(R.mipmap.ic_launcher ) ;
+        builder.setAutoCancel( true ) ;
+        builder.setChannelId( NOTIFICATION_CHANNEL_ID ) ;
+        return builder.build() ;
     }
 
     @Override
@@ -102,8 +128,6 @@ public class NoteActivity extends AppCompatActivity {
                     note.done = false;
                     note.date = sdf.format(Calendar.getInstance().getTime());
                     note.timestamp = System.currentTimeMillis();
-
-
                     if (getIntent().hasExtra(EXTRA_NOTE)) {
                         App.getInstance().getNoteDao().update(note);
                     } else {
@@ -137,6 +161,18 @@ public class NoteActivity extends AppCompatActivity {
             myMonth = monthOfYear;
             myDay = dayOfMonth;
             btnDate.setText("Задана дата " + myDay + "/" + myMonth + "/" + myYear);
+            myCalendar.set(Calendar. YEAR , year) ;
+            myCalendar.set(Calendar. MONTH , monthOfYear) ;
+            myCalendar.set(Calendar. DAY_OF_MONTH , dayOfMonth) ;
+            updateLabel();
         }
     };
+
+    private void updateLabel () {
+//        String myFormat = "dd/MM/yy" ; //In which you need put here
+//        SimpleDateFormat sdf = new SimpleDateFormat(myFormat , Locale.getDefault()) ;
+        Date date = myCalendar.getTime() ;
+//        btnDate.setText(sdf.format(date)) ;
+        scheduleNotification(getNotification(btnDate.getText().toString()) , date.getTime()) ;
+    }
 }

@@ -3,8 +3,7 @@
     package="com.sv.tasklist">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name = "android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -27,10 +26,8 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".activity.IntentService"
-            android:exported="false" >
-        </service>
+        <receiver android:name= ".notification.MyNotificationPublisher" />
+
 
         <activity android:name=".activity.notes.NoteActivity"
             android:theme="@style/Theme.TaskList.NoActionBar" />
