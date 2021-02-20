@@ -23,15 +23,6 @@
         android:gravity="center"
         tools:text="Заголовок"/>
 
-<!--    <TextView-->
-<!--        android:id="@+id/note_text"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_weight="1"-->
-<!--        android:minHeight="64dp"-->
-<!--        android:gravity="center|center_vertical"-->
-<!--        tools:text="some text"/>-->
-
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="0dp"

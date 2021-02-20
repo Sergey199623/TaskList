@@ -28,7 +28,6 @@
 
         <receiver android:name= ".notification.MyNotificationPublisher" />
 
-
         <activity android:name=".activity.notes.NoteActivity"
             android:theme="@style/Theme.TaskList.NoActionBar" />
         

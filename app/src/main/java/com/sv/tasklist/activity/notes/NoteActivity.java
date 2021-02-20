@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,7 +84,8 @@ public class NoteActivity extends AppCompatActivity {
         if (getIntent().hasExtra(EXTRA_NOTE)) {
             note = getIntent().getParcelableExtra(EXTRA_NOTE);
             etTitle.setText(note.title);
-            etTitle.setText(note.text);
+            etDesc.setText(note.text);
+            btnDate.setText(note.date);
         } else {
             note = new Note();
         }
@@ -93,13 +95,15 @@ public class NoteActivity extends AppCompatActivity {
         Intent notificationIntent = new Intent( this, MyNotificationPublisher. class ) ;
         notificationIntent.putExtra(MyNotificationPublisher. NOTIFICATION_ID , 1 ) ;
         notificationIntent.putExtra(MyNotificationPublisher. NOTIFICATION , notification) ;
-        PendingIntent pendingIntent = PendingIntent. getBroadcast ( this, 0 , notificationIntent , PendingIntent. FLAG_UPDATE_CURRENT ) ;
+        PendingIntent pendingIntent = PendingIntent. getBroadcast ( this, 0 ,
+                notificationIntent , PendingIntent. FLAG_UPDATE_CURRENT ) ;
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context. ALARM_SERVICE ) ;
         assert alarmManager != null;
         alarmManager.set(AlarmManager. ELAPSED_REALTIME_WAKEUP , delay , pendingIntent) ;
     }
     private Notification getNotification (String content) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder( this, default_notification_channel_id ) ;
+        NotificationCompat.Builder builder = new NotificationCompat.Builder( this,
+                default_notification_channel_id ) ;
         builder.setContentTitle( "Scheduled Notification" ) ;
         builder.setContentText(content) ;
         builder.setSmallIcon(R.mipmap.ic_launcher ) ;
@@ -134,6 +138,15 @@ public class NoteActivity extends AppCompatActivity {
                         App.getInstance().getNoteDao().insert(note);
                     }
                     finish();
+                } else if ((etDesc.getText().length() > 0) && (etTitle.getText().length() < 0)){
+                    Toast.makeText(this, "Заполните поле Название заметки",
+                            Toast.LENGTH_SHORT).show();
+                } else if ((etDesc.getText().length() < 0) && (etTitle.getText().length() < 0)){
+                    Toast.makeText(this, "Заполните поле описание заметки",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Заполните поля названия и описания заметки",
+                            Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

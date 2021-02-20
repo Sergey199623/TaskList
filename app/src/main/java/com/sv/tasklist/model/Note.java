@@ -27,6 +27,9 @@ public class Note implements Parcelable {
     @ColumnInfo(name = "DateOfCreate")
     public String date;
 
+    @ColumnInfo(name = "PlannedDay")
+    public String plannedDay;
+
     @ColumnInfo(name = "Complete")
     public boolean done;
 
@@ -52,6 +55,7 @@ public class Note implements Parcelable {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (text != null ? text.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (plannedDay != null ? plannedDay.hashCode() : 0);
         result = 31 * result + (int) (timestamp ^ (timestamp >>> 32));
         result = 31 * result + (done ? 1 : 0);
         return result;
@@ -62,6 +66,7 @@ public class Note implements Parcelable {
         title = in.readString();
         text = in.readString();
         date = in.readString();
+        plannedDay = in.readString();
         timestamp = in.readLong();
         done = in.readByte() != 0;
     }
@@ -72,6 +77,7 @@ public class Note implements Parcelable {
         dest.writeString(title);
         dest.writeString(text);
         dest.writeString(date);
+        dest.writeString(plannedDay);
         dest.writeLong(timestamp);
         dest.writeByte((byte) (done ? 1 : 0));
     }
