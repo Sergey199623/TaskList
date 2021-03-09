@@ -82,6 +82,7 @@ public class NoteActivity extends AppCompatActivity {
         btnDate.setBackgroundColor(Color.DKGRAY);
 
         if (getIntent().hasExtra(EXTRA_NOTE)) {
+            setTitle(getString(R.string.note_recreate));
             note = getIntent().getParcelableExtra(EXTRA_NOTE);
             etTitle.setText(note.title);
             etDesc.setText(note.text);
@@ -125,6 +126,18 @@ public class NoteActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 break;
+            case R.id.action_share:
+                try {
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plan");
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Subject test");
+                    String body = etTitle.getText().toString() + "\n" + etDesc.getText().toString()
+                            + "\n" + getString(R.string.share_from) + getString(R.string.app_name) + "\n";
+                    intent.putExtra(Intent.EXTRA_TEXT, body);
+                    startActivity(Intent.createChooser(intent, "Share with :"));
+                } catch (Exception e) {
+                    Toast.makeText(this, "Hmm... Sorry, \nCannot be share", Toast.LENGTH_SHORT).show();
+                }
             case R.id.action_save:
                 if ((etDesc.getText().length() > 0) && (etTitle.getText().length() > 0)) {
                     note.title = etTitle.getText().toString();
