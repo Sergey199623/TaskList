@@ -10,7 +10,6 @@
     <string name="done">Статус</string>
     <string name="share">Разослать</string>
     <string name="note_recreate">Редактирование заметки</string>
-    <string name="date_of_notification">Дата :</string>
     <string name="share_from">Получено из приложения :</string>
 
 </resources>

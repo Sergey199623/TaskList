@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="item_note_list_color">#4b636e</color>
+    <color name="main_color">#a7c0cd</color>
+    <color name="main_bg_color">@color/dark_3</color>
+</resources>

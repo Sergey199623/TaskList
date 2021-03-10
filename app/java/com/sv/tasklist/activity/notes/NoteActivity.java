@@ -103,7 +103,7 @@ public class NoteActivity extends AppCompatActivity {
                 myHour = myCalendar.get(Calendar.HOUR_OF_DAY);
                 myMinute = myCalendar.get(Calendar.MINUTE);
 
-                btnDate.setText(DateFormat.format(getString(R.string.date_of_notification) + " dd.MM.yyyy HH:mm", myCalendar.getTime()));
+                btnDate.setText(DateFormat.format(getString(R.string.date_of_notification) +" dd.MM.yyyy HH:mm", myCalendar.getTime()));
             } catch (ParseException e) {
                 e.printStackTrace();
 
@@ -219,7 +219,7 @@ public class NoteActivity extends AppCompatActivity {
             myCalendar.set(Calendar.HOUR_OF_DAY,myHour);
             myCalendar.set(Calendar.MINUTE,myMinute);
 
-            btnDate.setText(DateFormat.format(getString(R.string.date_of_notification) +" dd.MM.yyyy HH:mm", myCalendar.getTime()));
+            btnDate.setText(DateFormat.format(getString(R.string.date_of_notification) + "dd.MM.yyyy HH:mm", myCalendar.getTime()));
            // updateLabel();
         }
     };

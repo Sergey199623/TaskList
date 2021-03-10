@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#faebd7"
+    android:background="@color/main_bg_color"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:titleTextColor="@android:color/black"
-        android:background="#cc7722"
+        android:background="@color/main_color"
         app:popupTheme="@style/Theme.TaskList.PopupOverlay" />
 
     <EditText
