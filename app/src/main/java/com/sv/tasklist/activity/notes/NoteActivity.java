@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -49,6 +51,7 @@ public class NoteActivity extends AppCompatActivity {
     private Note note;
     private EditText etTitle;
     private EditText etDesc;
+    private CheckBox cbNotification;
     private Button btnDate;
 
     int DIALOG_DATE = 1;
@@ -85,6 +88,7 @@ public class NoteActivity extends AppCompatActivity {
 
         etTitle = findViewById(R.id.etTitle);
         etDesc = findViewById(R.id.etDesc);
+        cbNotification = findViewById(R.id.cb_check_notification);
         btnDate = findViewById(R.id.btnDate);
         btnDate.setBackgroundColor(Color.DKGRAY);
 
@@ -93,7 +97,13 @@ public class NoteActivity extends AppCompatActivity {
             note = getIntent().getParcelableExtra(EXTRA_NOTE);
             etTitle.setText(note.title);
             etDesc.setText(note.text);
+            cbNotification.setVisibility(View.GONE);
 
+            if(note.date == null){
+                btnDate.setVisibility(View.GONE);
+            } else {
+                btnDate.setVisibility(View.VISIBLE);
+            }
 
             try {
                 myCalendar.setTime(sdf.parse(note.date));
@@ -106,12 +116,19 @@ public class NoteActivity extends AppCompatActivity {
                 btnDate.setText(DateFormat.format(getString(R.string.date_of_notification) + " dd.MM.yyyy HH:mm", myCalendar.getTime()));
             } catch (ParseException e) {
                 e.printStackTrace();
-
                 btnDate.setText(note.date);
             }
 
         } else {
             note = new Note();
+            cbNotification.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if(isChecked) {
+                    btnDate.setVisibility(View.VISIBLE);
+                } else if(!isChecked){
+                    btnDate.setVisibility(View.GONE);
+                }
+            }
+            );
         }
     }
 

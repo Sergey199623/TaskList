@@ -21,17 +21,28 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.TaskList.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
         </activity>
 
         <receiver android:name= ".notification.MyNotificationPublisher" />
 
-        <activity android:name=".activity.notes.NoteActivity"
+        <activity
+            android:name=".activity.notes.NoteActivity"
             android:theme="@style/Theme.TaskList.NoActionBar" />
 
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/Theme.TaskList.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

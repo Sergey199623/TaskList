@@ -11,5 +11,6 @@
     <string name="share">Разослать</string>
     <string name="note_recreate">Редактирование заметки</string>
     <string name="share_from">Получено из приложения :</string>
+    <string name="check_notification">Включить уведомление</string>
 
 </resources>
