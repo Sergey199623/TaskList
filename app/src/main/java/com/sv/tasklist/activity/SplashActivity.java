@@ -38,14 +38,12 @@ public class SplashActivity extends AppCompatActivity {
     private final Runnable myThread = new Runnable() {
         @Override
         public void run() {
-            while (mProgress < 100) {
+            while (mProgress < 10) {
                 try {
                     myHandler.sendMessage(myHandler.obtainMessage());
-                    sleep(5);
                 } catch (Throwable t) {
                     t.printStackTrace();
                 }
-                new Handler().post(() -> tvPercent.setText(String.valueOf(mProgress)));
             }
             startActivity(new Intent(SplashActivity.this,
                     MainActivity.class));
@@ -57,7 +55,6 @@ public class SplashActivity extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 mProgress++;
                 mProgressBar.setProgress(mProgress);
-                tvPercent.setText(String.valueOf(mProgress));
             }
         };
     };

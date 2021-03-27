@@ -31,11 +31,6 @@
             android:text=""
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/value123"
-            android:text="%" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
